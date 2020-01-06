@@ -8,6 +8,13 @@ body {
     background-color: #fc4445;
 }
 
+.title-container {
+    width: 500px;
+    margin: 0 auto;
+    position: relative;
+    top: 20vh;
+}
+
 h1,
 h2 {
     color: white;
@@ -20,4 +27,26 @@ h1 {
 
 h2 {
     font-size: 52px;
+}
+
+.title_hi,
+.title_marvel {
+    opacity: 0;
+}
+
+.title_marvel {
+    font-size: 122px;
+}
+
+.letters {
+    position: relative;
+    left: -15px;
+}
+
+.title_guess {
+    display: inline-block;
+    font-size: 52px;
+    opacity: 0;
+    color: white; // opacity: 0;
+    transition: opacity 0.3s ease-in-out;
 }
