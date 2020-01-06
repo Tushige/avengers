@@ -1,81 +1,39 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
-import axios from 'axios';
 import './app.scss';
-import { Transition } from 'react-transition-group';
-import anime from 'animejs/lib/anime.es.js';
+import Intro from './components/Intro/Intro'
+import Analyzer from './components/Analyzer/Analyzer.js'
+import { Transition, CSSTransition } from 'react-transition-group'
 
 function App(props) {
-  // Create a timeline with default parameters
-  const [tl, setTl] = useState(null);
-  const [transitionIn, setTransitionIn] = useState(false);
-  const [letters, setLetters] = useState('I GUESS');
-  const guess = createLetters(letters);
-  const letterClasses = generateLetterClasses(letters);
-
+  const [isIntro, setIsIntro] = useState(false);
   useEffect(() => {
-    setTl(anime.timeline({
-      easing: 'easeOutExpo',
-      duration: 200
-    }));
+    setTimeout(() => {
+      setIsIntro(true)
+    }, 2000)
+    setTimeout(() => {
+      setIsIntro(false);
+    }, 7000)
   }, [])
-
-  useEffect(() => {
-    if (tl === null) return
-
-    tl.add({
-      targets: '.title_hi',
-      opacity: 1,
-      duration: 300
-    })
-
-    letterClasses.forEach((letterClass, i) => {
-      tl.add({
-        targets: letterClass,
-        translateX: 15,
-      }, i === 0 ? '+= 1000' : '+=0')
-      tl.add({
-        targets: letterClass,
-        opacity: 1,
-        duration: 100
-      }, '-=400')
-    })
-    tl.add({
-      targets: '.title_marvel',
-      opacity: 1,
-      duration: 300
-    })
-    setTimeout(() => setTransitionIn(true), 1000);
-  }, [tl])
-
-  function createLetters(text) {
-    return text.split('').map((character, i) => {
-      const isCharacterSpace = character === ' '
-      if (isCharacterSpace) {
-        character = 'a';
-      }
-      return (
-        <span
-          className={`title_guess letter-${i}`}
-          style={{ visibility: isCharacterSpace ? 'hidden' : 'visible' }}
-          key={i}>{character}</span>
-      )
-    })
-  }
-
-  function generateLetterClasses(letters) {
-    const classes = letters.split('').map((letter, i) => `.letter-${i}`)
-    return classes
-  }
-  return (
-    <div className="title-container">
-      <h1 className="title_hi">Hi</h1>
-      <div className="letters">
-        {guess}
+  console.log(isIntro)
+  return isIntro ? (
+    <CSSTransition
+      in={isIntro}
+      timeout={1000}
+      classNames="intro"
+      // onEnter={() => console.log('onEnter')}
+      // onEntering={() => console.log('onEntering')}
+      // onEntered={() => console.log('onEntered')}
+      // onExit={() => console.log('onExit')}
+      // onExiting={() => console.log('onExiting')}
+      // onExited={() => console.log('onExited')}
+      // unmountOnExit
+      key="asherf">
+      <div>
+        <h1> hi</h1>
       </div>
-      <h2 className="title_marvel">MARVEL</h2>
-    </div>
-  )
+    </CSSTransition>
+  ) : <Analyzer />
 }
 
 export default App;

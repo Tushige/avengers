@@ -8,45 +8,21 @@ body {
     background-color: #fc4445;
 }
 
-.title-container {
-    width: 500px;
-    margin: 0 auto;
-    position: relative;
-    top: 20vh;
-}
-
-h1,
-h2 {
-    color: white;
-    transition: opacity 0.3s ease-in;
-}
-
-h1 {
-    font-size: 72px;
-}
-
-h2 {
-    font-size: 52px;
-}
-
-.title_hi,
-.title_marvel {
+.intro-enter {
     opacity: 0;
 }
 
-.title_marvel {
-    font-size: 122px;
+.intro-enter-active {
+    opacity: 1;
+    background-color: black;
+    transition: opacity 0.2s;
 }
 
-.letters {
-    position: relative;
-    left: -15px;
+.intro-exit {
+    opacity: 1;
 }
 
-.title_guess {
-    display: inline-block;
-    font-size: 52px;
+.intro-exit-active {
     opacity: 0;
-    color: white; // opacity: 0;
-    transition: opacity 0.3s ease-in-out;
+    transition: opacity 0.2s;
 }
