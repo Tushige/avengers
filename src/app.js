@@ -12,7 +12,7 @@ function App(props) {
     setIsIntro(true)
     setTimeout(() => {
       setIsIntro(false);
-    }, 5000)
+    }, 1000)
   }, [])
   console.log(isIntro)
   return (
