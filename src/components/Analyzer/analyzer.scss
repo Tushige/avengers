@@ -1,0 +1,60 @@
+/**
+animations for component mount/unmount
+*/
+
+.analyzer-enter {
+    opacity: 0;
+}
+
+.analyzer-enter-active {
+    opacity: 1;
+    transition: opacity 0.2s;
+}
+
+.analyzer-exit {
+    opacity: 1;
+}
+
+.analyzer-exit-active {
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.upload-image-container {
+    width: 500px;
+    height: 350px;
+    margin: 0 auto;
+    position: relative;
+    top: 20vh;
+    display: flex;
+    align-items: center;
+    border: 4px dashed coral;
+}
+
+.upload-image-container input {
+    width: 0.1px;
+    height: 0.1px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.upload-image-container label {
+    color: white;
+    font-size: 32px;
+    margin: 0 auto;
+    left: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.upload-icon {
+    color: white;
+    font-size: 62px;
+    cursor: pointer;
+}
+
+#image-file {}

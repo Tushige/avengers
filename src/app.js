@@ -7,33 +7,36 @@ import { Transition, CSSTransition } from 'react-transition-group'
 
 function App(props) {
   const [isIntro, setIsIntro] = useState(false);
+  const [isAnalyzer, setIsAnalyzer] = useState(false);
   useEffect(() => {
-    setTimeout(() => {
-      setIsIntro(true)
-    }, 2000)
+    setIsIntro(true)
     setTimeout(() => {
       setIsIntro(false);
-    }, 7000)
+    }, 5000)
   }, [])
   console.log(isIntro)
-  return isIntro ? (
-    <CSSTransition
-      in={isIntro}
-      timeout={1000}
-      classNames="intro"
-      // onEnter={() => console.log('onEnter')}
-      // onEntering={() => console.log('onEntering')}
-      // onEntered={() => console.log('onEntered')}
-      // onExit={() => console.log('onExit')}
-      // onExiting={() => console.log('onExiting')}
-      // onExited={() => console.log('onExited')}
-      // unmountOnExit
-      key="asherf">
-      <div>
-        <h1> hi</h1>
-      </div>
-    </CSSTransition>
-  ) : <Analyzer />
+  return (
+    <>
+      <CSSTransition
+        in={isIntro}
+        timeout={1000}
+        classNames="intro"
+        mountOnEnter
+        unmountOnExit
+        onExited={() => setIsAnalyzer(true)}
+        key="asherf">
+        <Intro />
+      </CSSTransition>
+      <CSSTransition
+        in={isAnalyzer}
+        timeout={1000}
+        classNames="analyzer"
+        mountOnEnter
+      >
+        <Analyzer />
+      </CSSTransition>
+    </>
+  )
 }
 
 export default App;
