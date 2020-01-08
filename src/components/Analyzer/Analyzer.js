@@ -51,14 +51,13 @@ function Analyzer(props) {
           anime({
             targets: '.button-title',
             fontSize: '72px',
-            duration: 2000
+            duration: 1000
           })
           anime({
             targets: '.arc-reactor',
             width: '161px',
             height: '192px',
-            paddingBottom: '30px',
-            duration: 3000
+            duration: 4000
           })
         }
         setFile(image);
@@ -75,25 +74,23 @@ function Analyzer(props) {
 
     setIsAnalyzing(true);
 
-    axios.post('https://avengers-rend.onrender.com/analyze', formData)
-      .then(({ data }) => {
-        setIsAnalyzing(false);
-        console.log(res);
-        setHeroName(data.result);
-      })
-      .catch(e => console.error(e))
-  }
-  if (isAnalyzing) {
-    return (
-      <div>Analyzing</div>
-    )
+    // axios.post('https://avengers-rend.onrender.com/analyze', formData)
+    //   .then(({ data }) => {
+    //     setIsAnalyzing(false);
+    //     console.log(res);
+    //     setHeroName(data.result);
+    //   })
+    //   .catch(e => console.error(e))
+    setTimeout(() => {
+      setIsAnalyzing(false);
+    }, 5000)
   }
   return (
     <>
       <div className="button-container">
         <h1 className="button-title">GUESS</h1>
-        <div className="arc-reactor">
-          <ArcReactor />
+        <div className="arc-reactor" onClick={guessCharacter}>
+          <ArcReactor isActive={isAnalyzing} />
         </div>
       </div>
 

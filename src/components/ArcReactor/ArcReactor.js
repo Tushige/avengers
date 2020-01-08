@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import './ArcReactor.scss';
 
-function ArcReactor() {
+function ArcReactor({ isActive }) {
   return (
-    <div className="reactor-container circle">
+    <div className={`reactor-container circle ${isActive && 'active'}`}>
       <div className="reactor-container-inner circle"></div>
       <div className="tunnel circle"></div>
       <div className="core-container circle"></div>
