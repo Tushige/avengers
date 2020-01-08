@@ -25,10 +25,10 @@ animations for component mount/unmount
     height: 350px;
     margin: 0 auto;
     position: relative;
-    top: 20vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 70px;
 }
 
 .image-container {
@@ -62,6 +62,7 @@ animations for component mount/unmount
     flex-direction: column;
     align-items: center;
     position: relative;
+    margin-bottom: 50px;
 }
 
 .upload-icon {
@@ -72,3 +73,21 @@ animations for component mount/unmount
 }
 
 #image-file {}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.button-title {
+    font-size: 0;
+}
+
+.arc-reactor {
+    height: 0;
+    width: 0;
+    padding-bottom: 0px;
+}

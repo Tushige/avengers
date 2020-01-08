@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import './analyzer.scss';
 import axios from 'axios';
 import anime from 'animejs/lib/anime.es.js';
-
+import ArcReactor from '../ArcReactor/ArcReactor';
 const DEFAULT_IMAGE_WIDTH = 500;
 const DEFAULT_IMAGE_HEIGHT = 350;
 
@@ -48,6 +48,18 @@ function Analyzer(props) {
             top: '35vh',
             duration: 1000
           })
+          anime({
+            targets: '.button-title',
+            fontSize: '72px',
+            duration: 2000
+          })
+          anime({
+            targets: '.arc-reactor',
+            width: '161px',
+            height: '192px',
+            paddingBottom: '30px',
+            duration: 3000
+          })
         }
         setFile(image);
       }
@@ -78,6 +90,13 @@ function Analyzer(props) {
   }
   return (
     <>
+      <div className="button-container">
+        <h1 className="button-title">GUESS</h1>
+        <div className="arc-reactor">
+          <ArcReactor />
+        </div>
+      </div>
+
       <div className="upload-image-container"
       >
         <div className="image-container">

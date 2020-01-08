@@ -1,0 +1,143 @@
+$factor: 2;
+$container-width: calc(320px / #{$factor});
+$container-height: calc(320px / #{$factor});
+$container-inner-width: calc(250px / #{$factor});
+$container-inner-height: calc(250px / #{$factor});
+$tunnel-width: calc(200px / #{$factor});
+$tunnel-height: calc(200px / #{$factor});
+$core-container-width: calc(180px / #{$factor});
+$core-container-height: calc(180px / #{$factor});
+$core-outer-width: calc(120px / #{$factor});
+$core-outer-height: calc(120px / #{$factor});
+$core-inner-width: calc(70px / #{$factor});
+$core-inner-height: calc(70px / #{$factor});
+$coil-width: calc(30px / #{$factor});
+$coil-height: calc(40px / #{$factor});
+body {
+    margin: 0;
+}
+
+.reactor-container {
+    width: $container-width;
+    height: $container-height;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle, #fc4445 40%, rgba(94, 3, 22, 1) 70%);
+    border: 1px solid #250209;
+    box-shadow: 0px 0px 24px 6px #250209, 0px 0px 2px 2px #250209 inset;
+    cursor: pointer;
+}
+
+.reactor-container-inner {
+    position: absolute;
+    width: $container-inner-width;
+    height: $container-inner-height;
+    background-color: #08181c;
+    margin: auto;
+    box-shadow: 0px 0px 4px 1px #52fefe;
+}
+
+.core-inner {
+    position: absolute;
+    width: $core-inner-width;
+    height: $core-inner-height;
+    border: 3px solid #1b4e5b;
+    background-color: #fff;
+    margin: auto;
+    box-shadow: 0px 0px 4px 3px #52fefe, 0px 0px 5px 2px #52fefe inset;
+}
+
+.core-outer {
+    position: absolute;
+    width: $core-outer-width;
+    height: $core-outer-height;
+    border: 1px solid #52fefe;
+    background-color: #fff;
+    box-shadow: 0px 0px 2px 1px #52fefe, 0px 0px 2px 2px #52fefe inset;
+}
+
+.core-container {
+    position: absolute;
+    width: $core-container-width;
+    height: $core-container-height;
+    border: 1px solid #52fefe;
+    background-color: #1b4e5b;
+    box-shadow: 0px 0px 2px 1px #52fefe, 0px 0px 10px 5px #52fefe inset;
+}
+
+.tunnel {
+    position: absolute;
+    width: $tunnel-width;
+    height: $tunnel-height;
+    border: 1px solid #52fefe;
+    background-color: #fff;
+    box-shadow: 0px 0px 2px 1px #52fefe, 0px 0px 10px 5px #52fefe inset;
+}
+
+.coil {
+    width: $coil-width;
+    height: $coil-height;
+    position: absolute; // background-color: #073c4b;rgba(7,60,75,1)
+    background: linear-gradient(0deg, rgba(23, 172, 214, 1) 50%, rgba(7, 60, 75, 1) 100%);
+    box-shadow: 0px 0px 5px 4px #52fefe inset;
+    transform-origin: 50% calc(#{$tunnel_height} / 2);
+    top: calc((#{$container-height} - #{$tunnel_height}) / 2);
+    left: calc(50% - (#{$coil-width} / 2));
+}
+
+.circle {
+    border-radius: 50%;
+}
+
+.coil-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    animation-name: rotation;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.coil-1 {
+    transform: rotate(calc(360deg / 8));
+}
+
+.coil-2 {
+    transform: rotate(calc(360deg / 8 * 2));
+}
+
+.coil-3 {
+    transform: rotate(calc(360deg / 8 * 3));
+}
+
+.coil-4 {
+    transform: rotate(calc(360deg / 8 * 4));
+}
+
+.coil-5 {
+    transform: rotate(calc(360deg / 8 * 5));
+}
+
+.coil-6 {
+    transform: rotate(calc(360deg / 8 * 6));
+}
+
+.coil-7 {
+    transform: rotate(calc(360deg / 8 * 7));
+}
+
+.coil-8 {
+    transform: rotate(calc(360deg));
+}
+
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
