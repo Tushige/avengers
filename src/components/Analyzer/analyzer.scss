@@ -20,6 +20,10 @@ animations for component mount/unmount
     transition: opacity 0.2s;
 }
 
+/*
+ * uploading image section
+ */
+
 .upload-image-container {
     width: 500px;
     height: 350px;
@@ -89,4 +93,112 @@ animations for component mount/unmount
 .arc-reactor {
     height: 0;
     width: 0;
+}
+
+/*
+ * characters
+ */
+
+.captain_america,
+.iron_man {
+    position: fixed;
+    bottom: 0;
+}
+
+.captain_america img,
+.iron_man img {
+    filter: brightness(0) blur(4px);
+    transition: filter 1s ease-in;
+    animation: sidestep 4s linear infinite alternate;
+}
+
+.captain_america {
+    left: 0;
+}
+
+.iron_man {
+    right: 0;
+}
+
+.captain_america.active {
+    img {
+        filter: brightness(1) blur(0);
+    }
+    .glow-left {
+        box-shadow: 0 0 50px 10px #fff, 0 0 80px 90px #6a00ff, 0 0 140px 40px navy;
+        animation: blue-flicker 6s infinite alternate;
+        height: 100vh;
+    }
+}
+
+.iron_man.active {
+    img {
+        filter: brightness(1) blur(0);
+    }
+    .glow-right {
+        box-shadow: 0 0 50px 15px #fff, 0 0 80px 80px firebrick, 0 0 100px 80px crimson;
+        animation: red-flicker 6s infinite alternate;
+        height: 100vh;
+    }
+}
+
+.glow-left {
+    position: fixed;
+    height: 0;
+    left: 30px;
+    top: 0;
+    transition: height 2s ease-out;
+}
+
+.glow-right {
+    position: fixed;
+    height: 0;
+    right: 70px;
+    top: 0;
+    transition: height 2s ease-out;
+}
+
+@keyframes blue-flicker {
+    0% {
+        box-shadow: 0 0 40px 15px #fff, 0 0 100px 90px #6a00ff, 0 0 140px 40px navy;
+    }
+    20% {
+        box-shadow: 0 0 40px 15px #fff, 0 0 120px 90px #6a00ff, 0 0 120px 30px navy;
+    }
+    40% {
+        box-shadow: 0 0 40px 15px #fff, 0 0 150px 80px #6a00ff, 0 0 180px 20px navy;
+    }
+    60% {
+        box-shadow: 0 0 40px 15px #fff, 0 0 110px 90px #6a00ff, 0 0 200px 60px navy;
+    }
+}
+
+@keyframes red-flicker {
+    0% {
+        box-shadow: 0 0 50px 15px #fff, 0 0 100px 40px crimson, 0 0 80px 90px firebrick, 0 0 100px 40px #a11e18;
+    }
+    20% {
+        box-shadow: 0 0 50px 15px #fff, 0 0 100px 40px crimson, 0 0 90px 90px firebrick, 0 0 120px 90px #a11e18;
+    }
+    40% {
+        box-shadow: 0 0 50px 15px #fff, 0 0 100px 40px crimson, 0 0 110px 100px firebrick, 0 0 130px 110px #a11e18;
+    }
+    60% {
+        box-shadow: 0 0 50px 15px #fff, 0 0 100px 40px crimson, 0 0 140px 110px firebrick, 0 0 140px 130px #a11e18;
+    }
+}
+
+@keyframes sidestep {
+    0% {
+        transform: translateX(-2px);
+    }
+    20% {
+        transform: translateX(1px);
+    }
+    60% {
+        transform: translateX(-1px);
+    }
+    100% {
+        transform: translateX(1px);
+    }
 }
