@@ -27,7 +27,6 @@ function Analyzer(props) {
   }, [])
 
   function uploadImage(image) {
-    setGuess('');
     // we first restore the image container to its original size.
     // otherwise, subsequent uploads cannot be larger than previous uploads, so our images can keep shrinking - we don't want that
     anime({
@@ -38,7 +37,7 @@ function Analyzer(props) {
       complete: () => {
         // imageRef.current.src = URL.createObjectURL(image);
         // imageRef.current.onload = (e) => {
-        imageDOM.src = image
+        imageDOM.src = image;
         imageDOM.onload = (e) => {
           console.log('image finished loading')
           anime({
@@ -66,23 +65,27 @@ function Analyzer(props) {
             duration: 4000
           })
         }
-        setFile(image);
       }
     }, '-=300');
   }
   function handleFileUpload(e) {
     const image = e.target.files[0];
+    setGuess('');
+    setFile(image);
+    console.log(image)
     uploadImage(URL.createObjectURL(image));
   }
   function fileDropHandler(e) {
     e.preventDefault();
-    console.log('file dropped');
-    const imgHtml = e.dataTransfer.getData('text/html');
-    var rex = /src="?([^"\s]+)"?\s*/;
-    var url, res;
-
-    url = rex.exec(imgHtml);
-    uploadImage(url[1])
+    var files = e.dataTransfer.files;
+    for (var i = 0, f; f = files[i]; i++) {
+      console.log('f: ', f);
+    }
+    console.log(e.dataTransfer)
+    const imgUrl = e.dataTransfer.getData('text/uri-list');
+    setGuess('');
+    setFile(imgUrl);
+    uploadImage(imgUrl);
   }
   function onDragOver(e) {
     e.stopPropagation();
@@ -113,7 +116,9 @@ function Analyzer(props) {
     <div className="analyzer-container" onDrop={fileDropHandler} onDragOver={onDragOver}>
       <div className={`captain_america ${guess === 'captain_america' ? 'active' : ''}`}>
         <div className="glow-left"></div>
-        <img src={captain_america} alt="captain america" width="700px" height="438px" />
+        <div className="img-wrapper">
+          <img src={captain_america} alt="captain america" width="700px" height="438px" />
+        </div>
       </div>
       <div className="middle">
         <div className="button-container">
@@ -138,7 +143,9 @@ function Analyzer(props) {
       </div>
       <div className={`iron_man ${guess === 'iron_man' && 'active'}`}>
         <div className="glow-right"></div>
-        <img src={iron_man} alt="iron man" width="700px" height="393px" />
+        <div className="img-wrapper">
+          <img src={iron_man} alt="iron man" width="700px" height="393px" />
+        </div>
       </div>
     </div>
   )
