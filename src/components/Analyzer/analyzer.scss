@@ -103,6 +103,7 @@ animations for component mount/unmount
 .iron_man {
     position: fixed;
     bottom: 0;
+    transition: transform 1s ease-in;
 }
 
 .captain_america img,
@@ -121,6 +122,7 @@ animations for component mount/unmount
 }
 
 .captain_america.active {
+    transform: scale(1.2);
     img {
         filter: brightness(1) blur(0);
     }
@@ -132,6 +134,7 @@ animations for component mount/unmount
 }
 
 .iron_man.active {
+    transform: scale(1.2);
     img {
         filter: brightness(1) blur(0);
     }

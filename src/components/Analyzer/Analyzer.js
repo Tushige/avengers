@@ -26,8 +26,7 @@ function Analyzer(props) {
     }));
   }, [])
 
-  function handleFileUpload(e) {
-    const image = e.target.files[0];
+  function uploadImage(image) {
     setGuess('');
     // we first restore the image container to its original size.
     // otherwise, subsequent uploads cannot be larger than previous uploads, so our images can keep shrinking - we don't want that
@@ -39,8 +38,7 @@ function Analyzer(props) {
       complete: () => {
         // imageRef.current.src = URL.createObjectURL(image);
         // imageRef.current.onload = (e) => {
-        console.log(imageDOM)
-        imageDOM.src = URL.createObjectURL(image);
+        imageDOM.src = image
         imageDOM.onload = (e) => {
           console.log('image finished loading')
           anime({
@@ -72,6 +70,24 @@ function Analyzer(props) {
       }
     }, '-=300');
   }
+  function handleFileUpload(e) {
+    const image = e.target.files[0];
+    uploadImage(URL.createObjectURL(image));
+  }
+  function fileDropHandler(e) {
+    e.preventDefault();
+    console.log('file dropped');
+    const imgHtml = e.dataTransfer.getData('text/html');
+    var rex = /src="?([^"\s]+)"?\s*/;
+    var url, res;
+
+    url = rex.exec(imgHtml);
+    uploadImage(url[1])
+  }
+  function onDragOver(e) {
+    e.stopPropagation();
+    e.preventDefault();
+  }
   function guessCharacter() {
     if (!file) {
       alert('please upload an image first');
@@ -94,7 +110,7 @@ function Analyzer(props) {
     // }, 5000)
   }
   return (
-    <div className="analyzer-container">
+    <div className="analyzer-container" onDrop={fileDropHandler} onDragOver={onDragOver}>
       <div className={`captain_america ${guess === 'captain_america' ? 'active' : ''}`}>
         <div className="glow-left"></div>
         <img src={captain_america} alt="captain america" width="700px" height="438px" />
