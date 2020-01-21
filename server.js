@@ -6,6 +6,6 @@ const router = require('koa-router')()
 // hit /, serve folder
 
 // serve build folder
-app.use(serve(path.join(__dirname, '../dist')))
+app.use(serve(path.join(__dirname, './dist')))
 
 app.listen(3000)
