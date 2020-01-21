@@ -8,7 +8,7 @@ animations for component mount/unmount
 
 .analyzer-enter-active {
     opacity: 1;
-    transition: opacity 0.2s;
+    transition: opacity 1s;
 }
 
 .analyzer-exit {
@@ -17,7 +17,7 @@ animations for component mount/unmount
 
 .analyzer-exit-active {
     opacity: 0;
-    transition: opacity 0.2s;
+    transition: opacity 1s;
 }
 
 /*

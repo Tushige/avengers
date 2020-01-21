@@ -12,7 +12,7 @@ function App(props) {
     setIsIntro(true)
     setTimeout(() => {
       setIsIntro(false);
-    }, 7000)
+    }, 5000)
   }, [])
   return (
     <>
@@ -31,6 +31,8 @@ function App(props) {
         timeout={1000}
         classNames="analyzer"
         mountOnEnter
+        unmountOnExit
+        key="gas"
       >
         <Analyzer />
       </CSSTransition>
