@@ -154,8 +154,8 @@ function Analyzer(props) {
           <input type="file" id="image-file" onChange={handleFileUpload}>
           </input>
           <label htmlFor="image-file" className="upload-label">
-            <span class="upload-label-text">UPLOAD an image</span>
-            <span><span class="text-captain-america">Captain America</span> or <span class="text-iron-man">Iron Man</span></span>
+            <span className="upload-label-text">UPLOAD an image</span>
+            <span><span className="text-captain-america">Captain America</span> or <span className="text-iron-man">Iron Man</span></span>
             <div className="fa fa-upload upload-icon" />
           </label>
         </div>
