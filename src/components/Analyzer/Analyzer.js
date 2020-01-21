@@ -14,7 +14,7 @@ function Analyzer(props) {
   const [guess, setGuess] = useState('');
   const [imageDOM, setImageDOM] = useState('blank.gif');
   // the image file
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState(null); // image file must be in base64
   // the guess for the image
   // reference to the div whose background will be set to the uploaded image
   let imageRef = React.createRef();
@@ -27,67 +27,86 @@ function Analyzer(props) {
   }, [])
 
   function uploadImage(image) {
-    // we first restore the image container to its original size.
-    // otherwise, subsequent uploads cannot be larger than previous uploads, so our images can keep shrinking - we don't want that
-    anime({
-      targets: '.image-container',
-      width: DEFAULT_IMAGE_WIDTH,
-      height: DEFAULT_IMAGE_HEIGHT,
-      duration: 700,
-      complete: () => {
-        // imageRef.current.src = URL.createObjectURL(image);
-        // imageRef.current.onload = (e) => {
-        imageDOM.src = image;
-        imageDOM.onload = (e) => {
-          console.log('image finished loading')
-          anime({
-            targets: '.image-container',
-            width: e.target.width,
-            height: e.target.height,
-            duration: 1000
-          });
+    return new Promise((resolve) => {
+      // we first restore the image container to its original size.
+      // otherwise, subsequent uploads cannot be larger than previous uploads, so our images can keep shrinking - we don't want that
+      anime({
+        targets: '.image-container',
+        width: DEFAULT_IMAGE_WIDTH,
+        height: DEFAULT_IMAGE_HEIGHT,
+        duration: 700,
+        complete: () => {
+          // imageRef.current.src = URL.createObjectURL(image);
+          // imageRef.current.onload = (e) => {
+          imageDOM.src = image;
+          imageDOM.onload = (e) => {
+            anime({
+              targets: '.image-container',
+              width: e.target.width,
+              height: e.target.height,
+              duration: 1000
+            });
+            resolve(imageDOM);
+          }
+          if (file === null) {
+            anime({
+              targets: '.upload-label',
+              top: '35vh',
+              duration: 1000
+            })
+            anime({
+              targets: '.button-title',
+              fontSize: '72px',
+              duration: 1000
+            })
+            anime({
+              targets: '.arc-reactor',
+              width: '161px',
+              height: '192px',
+              duration: 4000
+            })
+          }
         }
-        if (file === null) {
-          anime({
-            targets: '.upload-label',
-            top: '35vh',
-            duration: 1000
-          })
-          anime({
-            targets: '.button-title',
-            fontSize: '72px',
-            duration: 1000
-          })
-          anime({
-            targets: '.arc-reactor',
-            width: '161px',
-            height: '192px',
-            duration: 4000
-          })
-        }
-      }
-    }, '-=300');
+      }, '-=300');
+
+    })
   }
+  /**
+   * called when user uploads file through file browser
+   */
   function handleFileUpload(e) {
     const image = e.target.files[0];
+    console.log(image)
     setGuess('');
     setFile(image);
-    console.log(image)
     uploadImage(URL.createObjectURL(image));
   }
+  /**
+   * called when user drops an image
+   */
   function fileDropHandler(e) {
+    e.stopPropagation();
     e.preventDefault();
-    var files = e.dataTransfer.files;
-    for (var i = 0, f; f = files[i]; i++) {
-      console.log('f: ', f);
-    }
-    console.log(e.dataTransfer)
     const imgUrl = e.dataTransfer.getData('text/uri-list');
+    let imgType = imgUrl.split('.')
+    imgType = imgType[imgType.length - 1]
+    fetch(imgUrl, { mode: 'no-cors' })
+      .then(res => res.arrayBuffer())
+      .then(buf => {
+        const f = new File([buf], 'image', { type: `image/${imgType}` })
+        setFile(f);
+        return f;
+      })
     setGuess('');
-    setFile(imgUrl);
-    uploadImage(imgUrl);
+    // convert image into base64 
+    uploadImage(imgUrl)
   }
   function onDragOver(e) {
+    // console.log(e.dataTransfer);
+    e.stopPropagation();
+    e.preventDefault();
+  }
+  function onDragEnter(e) {
     e.stopPropagation();
     e.preventDefault();
   }
@@ -101,19 +120,20 @@ function Analyzer(props) {
 
     setIsAnalyzing(true);
 
-    axios.post('https://avengers-rend.onrender.com/analyze', formData)
+    axios.post('https://avengers-262606.appspot.com/analyze', formData)
       .then(({ data }) => {
         setIsAnalyzing(false);
         setGuess(data.result);
       })
       .catch(e => console.error(e))
-    // setTimeout(() => {
-    //   setIsAnalyzing(false);
-    //   setGuess('iron man')
-    // }, 5000)
   }
   return (
-    <div className="analyzer-container" onDrop={fileDropHandler} onDragOver={onDragOver}>
+    <div
+      className="analyzer-container"
+      onDragEnter={onDragEnter}
+      onDragOver={onDragOver}
+      onDrop={fileDropHandler}>
+
       <div className={`captain_america ${guess === 'captain_america' ? 'active' : ''}`}>
         <div className="glow-left"></div>
         <div className="img-wrapper">
@@ -131,7 +151,7 @@ function Analyzer(props) {
         <div className="upload-image-container"
         >
           <div className="image-container">
-            <img id="upload-image" ref={(i => setImageDOM(i))} alt="" onError="this.style.display='none'" />
+            <img crossOrigin="anonymous" id="upload-image" ref={(i => setImageDOM(i))} alt="" onError="this.style.display='none'" />
           </div>
           <input type="file" id="image-file" onChange={handleFileUpload}>
           </input>
@@ -140,6 +160,7 @@ function Analyzer(props) {
             <div className="fa fa-upload upload-icon" />
           </label>
         </div>
+
       </div>
       <div className={`iron_man ${guess === 'iron_man' && 'active'}`}>
         <div className="glow-right"></div>
