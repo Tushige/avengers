@@ -76,7 +76,6 @@ function Analyzer(props) {
    */
   function handleFileUpload(e) {
     const image = e.target.files[0];
-    console.log(image)
     setGuess('');
     setFile(image);
     uploadImage(URL.createObjectURL(image));
@@ -102,7 +101,6 @@ function Analyzer(props) {
     uploadImage(imgUrl)
   }
   function onDragOver(e) {
-    // console.log(e.dataTransfer);
     e.stopPropagation();
     e.preventDefault();
   }

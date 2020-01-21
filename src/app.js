@@ -12,9 +12,8 @@ function App(props) {
     setIsIntro(true)
     setTimeout(() => {
       setIsIntro(false);
-    }, 1000)
+    }, 7000)
   }, [])
-  console.log(isIntro)
   return (
     <>
       <CSSTransition
