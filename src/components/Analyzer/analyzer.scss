@@ -69,11 +69,29 @@ animations for component mount/unmount
     margin-bottom: 50px;
 }
 
+.upload-label-text {
+    margin-bottom: 10px;
+}
+
 .upload-icon {
     color: white;
     font-size: 62px;
     cursor: pointer;
     margin-top: 15px;
+}
+
+.text-captain-america,
+.text-iron-man {
+    border-radius: 6px;
+    padding: 1px 4px 2px 4px;
+}
+
+.text-captain-america {
+    background: steelblue;
+}
+
+.text-iron-man {
+    background: crimson;
 }
 
 #image-file {}
