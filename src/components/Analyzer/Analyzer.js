@@ -77,6 +77,7 @@ function Analyzer(props) {
   function handleFileUpload(e) {
     const image = e.target.files[0];
     setGuess('');
+    setIsAnalyzing(false);
     setFile(image);
     uploadImage(URL.createObjectURL(image));
   }
@@ -97,6 +98,7 @@ function Analyzer(props) {
         return f;
       })
     setGuess('');
+    setIsAnalyzing(false);
     // convert image into base64 
     uploadImage(imgUrl)
   }
