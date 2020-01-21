@@ -8,4 +8,4 @@ const router = require('koa-router')()
 // serve build folder
 app.use(serve(path.join(__dirname, './dist')))
 
-app.listen(3000)
+app.listen(process.env.PORT || 3000)
